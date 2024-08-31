@@ -8,8 +8,8 @@ async function fetchData(param: string) {
   const { data } = await axios.get(URL + param);
   return data;
 }
-export function useReactQuery() {
-  const [reqParams, setReqParams] = useState();
+export function useReactQuery(param: string) {
+  const [reqParams, setReqParams] = useState<string>(param);
   const query = useQuery({
     queryKey: [reqParams],
     queryFn: () => {
@@ -20,5 +20,5 @@ export function useReactQuery() {
     },
     enabled: !!reqParams,
   });
-  return { query, setReqParams };
+  return { setReqParams, ...query };
 }
