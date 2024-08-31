@@ -32,6 +32,31 @@ export const GlobalStyle = createGlobalStyle`
         text-decoration: none;
     }
 
+    h1 {
+        font-family: ${({ theme }) => theme.fonts.h1.fontFamily};
+        font-weight: ${({ theme }) => theme.fonts.h1.fontWeight};
+        font-size: ${({ theme }) => theme.fonts.h1.fontSize};
+        line-height: ${({ theme }) => theme.fonts.h1.lineHeight};
+    }
+    h5 {
+        font-family: ${({ theme }) => theme.fonts.h5.fontFamily};
+        font-weight: ${({ theme }) => theme.fonts.h5.fontWeight};
+        font-size: ${({ theme }) => theme.fonts.h5.fontSize};
+        line-height: ${({ theme }) => theme.fonts.h5.lineHeight};
+    }
+    h6 {
+        font-family: ${({ theme }) => theme.fonts.h6.fontFamily};
+        font-weight: ${({ theme }) => theme.fonts.h6.fontWeight};
+        font-size: ${({ theme }) => theme.fonts.h6.fontSize};
+        line-height: ${({ theme }) => theme.fonts.h6.lineHeight};
+    }
+    p {
+        font-family: ${({ theme }) => theme.fonts.p.fontFamily};
+        font-weight: ${({ theme }) => theme.fonts.p.fontWeight};
+        font-size: ${({ theme }) => theme.fonts.p.fontSize};
+        line-height: ${({ theme }) => theme.fonts.p.lineHeight};
+    }
+
     .container {
         width: 100%;
         margin: 0 auto;

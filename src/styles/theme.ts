@@ -1,3 +1,4 @@
+import { darken, lighten } from 'polished';
 import { fontConfig } from '../utils/font-config';
 
 const PRIMARY_COLOR = '#00AB63';
@@ -7,8 +8,8 @@ export default {
   colors: {
     primary: {
       default: PRIMARY_COLOR,
-      light: PRIMARY_COLOR,
-      dark: PRIMARY_COLOR,
+      light: lighten(0.05, PRIMARY_COLOR),
+      dark: darken(0.05, PRIMARY_COLOR),
     },
     gray: {
       default: '#45505E',

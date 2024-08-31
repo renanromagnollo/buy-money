@@ -1,12 +1,18 @@
-import { useReactQuery } from './hooks/useReactQuery';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Template } from './components/Template';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <div>Hello world</div>,
+  },
+]);
 
 function App() {
-  const { data } = useReactQuery('USDBRL');
-  console.log(data);
   return (
-    <div>
-      <h1>{data && JSON.stringify(data)}</h1>
-    </div>
+    <Template>
+      <RouterProvider router={router} />;
+    </Template>
   );
 }
 
