@@ -2,16 +2,27 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { Logo } from './Logo';
-import { ButtonConvert } from './ButtonConvert';
 
 interface TemplateProps {
   children: ReactNode;
 }
 
 const ScreenArea = styled.div`
+  position: relative;
   width: 100vw;
+  height: 100vh;
   background-color: ${({ theme }) => theme.colors.background};
   padding: 30px;
+  overflow: hidden;
+`;
+
+const ImgBG = styled.div`
+  position: absolute;
+  bottom: -80px;
+  right: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent, black, transparent);
+  mask-image: linear-gradient(transparent, black, transparent);
 `;
 
 const Header = styled.div`
@@ -43,7 +54,9 @@ export function Template({ children }: TemplateProps) {
         </DateInfo>
       </Header>
       {children}
-      <ButtonConvert />
+      <ImgBG>
+        <img src="mask.png" alt="background-image" />
+      </ImgBG>
     </ScreenArea>
   );
 }

@@ -1,10 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Template } from './components/Template';
+// import { LoaderSpin } from './components/Loaders/LoaderSpin';
+// import { ConverterTool } from './components/ConverterTool';
+import { Result } from './components/Result';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>Hello world</div>,
+    element: <Result />,
   },
 ]);
 
