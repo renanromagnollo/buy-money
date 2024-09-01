@@ -1,6 +1,7 @@
 import { useRef } from 'react';
-import { ButtonConvert } from './Buttons/ButtonConvert';
+import { ButtonConvert } from '../../buttons/ButtonConvert';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const ToolArea = styled.section`
   display: flex;
@@ -29,11 +30,13 @@ export function ConverterTool() {
   console.log('componente renderizou');
   const refDolar = useRef<HTMLInputElement>(null);
   const refTaxa = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   function handleDolar() {
     if (refDolar && refTaxa) {
       console.log(refDolar.current?.value);
       console.log(refTaxa.current?.value);
+      navigate(`/result?d=${refDolar.current?.value}&t=${refTaxa.current?.value}`);
     }
   }
 

@@ -1,12 +1,15 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Template } from './components/Template';
-// import { LoaderSpin } from './components/Loaders/LoaderSpin';
-// import { ConverterTool } from './components/ConverterTool';
-import { Result } from './components/Result';
+import { Template } from './components/layout/Template';
+import { ConverterTool } from './components/layout/views/ConverterTool';
+import { Result } from './components/layout/views/Result';
 
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <ConverterTool />,
+  },
+  {
+    path: '/result',
     element: <Result />,
   },
 ]);

@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
-import { IconArrows } from '../Icons/IconArrows';
+import { IconArrows } from '../assets/icons/IconArrows';
+// import { Link } from 'react-router-dom';
 
 interface ButtonConvertProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   enabled?: boolean;
@@ -29,8 +30,10 @@ const Button = styled.button<{ disabled?: boolean }>`
 `;
 export function ButtonConvert({ enabled = false, ...props }: ButtonConvertProps) {
   return (
+    // <Link to={'/result'}>
     <Button {...props} disabled={!enabled}>
       <IconArrows /> <h6>Converter</h6>
     </Button>
+    // </Link>
   );
 }
