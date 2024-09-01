@@ -1,24 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useState } from 'react';
+import { ReqType } from '../types/type-req';
 
 const URL = 'http://localhost:3210/';
 
-async function fetchData(param: string) {
-  const { data } = await axios.get(URL + param);
-  return data;
+async function fetchData() {
+  const { data } = await axios.get(URL + 'USDBRL');
+  return data as ReqType;
 }
-export function useReactQuery(param: string) {
-  const [reqParams, setReqParams] = useState<string>(param);
+export function useReactQuery() {
   const query = useQuery({
-    queryKey: [reqParams],
-    queryFn: () => {
-      if (reqParams) {
-        return fetchData(reqParams);
-      }
-      return Promise.reject('Parameters not found!');
-    },
-    enabled: !!reqParams,
+    queryKey: ['USDBRL'],
+    queryFn: fetchData,
   });
-  return { setReqParams, ...query };
+  return query;
 }
