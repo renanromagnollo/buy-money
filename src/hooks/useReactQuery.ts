@@ -4,12 +4,12 @@ import { ReqType } from '../types/type-req';
 
 const URL = 'http://localhost:3210/';
 
-async function fetchData() {
-  const { data } = await axios.get(URL + 'USDBRL');
-  return data as ReqType;
+async function fetchData(): Promise<ReqType> {
+  const { data } = await axios.get<ReqType>(URL + 'USDBRL');
+  return data;
 }
 export function useReactQuery() {
-  const query = useQuery({
+  const query = useQuery<ReqType>({
     queryKey: ['USDBRL'],
     queryFn: fetchData,
   });

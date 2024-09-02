@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IconGraph } from '../Icons/IconGraph';
+import { IconGraph } from '../assets/icons/IconGraph';
 
 const LoaderArea = styled.div`
   width: 100px;

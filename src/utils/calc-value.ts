@@ -8,7 +8,7 @@ interface calcValuesProps {
 export function calcValues({
   dollarNumber,
   stateTax,
-  paymentType,
+  paymentType = '1',
   dollarPrice,
 }: calcValuesProps) {
   const iofMoney = 1.1;
