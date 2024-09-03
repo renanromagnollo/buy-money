@@ -171,30 +171,34 @@ export function ConverterTool() {
           )}
         </InputArea>
         <div>
-          <div style={{ display: 'flex', gap: '5px' }}>
-            <input
-              {...register('payment', { required: true })}
-              checked
-              type="radio"
-              name="payment"
-              id="money"
-              value="1"
-              style={{ accentColor: '#0076CC' }}
-            />
-            <label htmlFor="money">
-              <h5>Dinheiro</h5>
-            </label>
-            <input
-              {...register('payment', { required: true })}
-              type="radio"
-              name="payment"
-              id="card"
-              value="2"
-              style={{ accentColor: '#0076CC' }}
-            />
-            <label htmlFor="card">
-              <h5>Cartão</h5>
-            </label>
+          <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+            <div style={{ display: 'flex', gap: '3px', alignItems: 'center' }}>
+              <input
+                {...register('payment', { required: true })}
+                checked
+                type="radio"
+                name="payment"
+                id="money"
+                value="1"
+                style={{ accentColor: '#0076CC' }}
+              />
+              <label htmlFor="money">
+                <h5>Dinheiro</h5>
+              </label>
+            </div>
+            <div style={{ display: 'flex', gap: '3px', alignItems: 'center' }}>
+              <input
+                {...register('payment', { required: true })}
+                type="radio"
+                name="payment"
+                id="card"
+                value="2"
+                style={{ accentColor: '#0076CC' }}
+              />
+              <label htmlFor="card">
+                <h5>Cartão</h5>
+              </label>
+            </div>
           </div>
         </div>
         <ButtonConvert type="submit" enabled />
