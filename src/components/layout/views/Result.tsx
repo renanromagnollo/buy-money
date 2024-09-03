@@ -12,6 +12,7 @@ const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  gap: 10px;
   span,
   h1 {
     font-weight: bolder;
@@ -25,10 +26,11 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   gap: 5px;
-  padding: 15px;
+  padding: 10px;
   color: ${({ theme }) => theme.colors.background};
   border: none;
   border-radius: 5px;
+  margin-top: 30px;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary.light};
@@ -61,29 +63,29 @@ export function Result() {
       }
       return;
     }
-  }, [data, dollarNumber, tax]);
+  }, [data, dollarNumber, payment, tax]);
   return (
     <Container>
       {!result ? (
         <LoaderSpin />
       ) : (
         <>
+          <h5>O resultado do cálculo é</h5>
+          <h1>R$ {maskResultFinalValue(result.toString())}</h1>
+          <div>
+            <h6>
+              Compra de <span>$ {maskDollarLabel(dollarNumber.toString())}</span> doláres{' '}
+              no {payment === '1' ? 'dinheiro' : 'cartão'} e taxa de{' '}
+              <span>{tax.toString().replace(/\./, ',')}%.</span>
+            </h6>
+            <p>Cotação do dólar: $ 1,00 = R$ {data?.USDBRL.bid.replace(/\./, ',')}.</p>
+          </div>
           <Link to={'/'}>
             <Button>
               <ArrowLeft color="#ffffff" size={25} />
               <h6>Voltar</h6>
             </Button>
           </Link>
-          <h5>O resultado do cálculo é</h5>
-          <h1>R$ {maskResultFinalValue(result.toString())}</h1>
-          <div>
-            <p>
-              Compra de <span>$ {maskDollarLabel(dollarNumber.toString())}</span> doláres{' '}
-              no {payment === '1' ? 'dinheiro' : 'cartão'} e taxa de{' '}
-              <span>{tax.toString().replace(/\./, ',')}%.</span>
-            </p>
-            <p>Cotação do dólar: $ 1,00 = R$ {data?.USDBRL.bid.replace(/\./, ',')}.</p>
-          </div>
         </>
       )}
     </Container>

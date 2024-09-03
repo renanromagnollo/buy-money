@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { Logo } from '../assets/Logo';
+import { LogoRomagnollo } from '../assets/icons/RenanRomagnollo';
 
 interface TemplateProps {
   children: ReactNode;
@@ -16,8 +17,9 @@ const ScreenArea = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
+  padding: 5vh 0;
 `;
 
 // const ImgBG = styled.div`
@@ -35,6 +37,10 @@ const Header = styled.div`
   align-items: center;
   gap: 20px;
   margin-bottom: 50px;
+
+  @media (max-width: 800px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const DateInfo = styled.div`
@@ -72,16 +78,16 @@ export function Template({ children }: TemplateProps) {
           <h5>
             {`${date.getDay()} de ${
               months[date.getMonth() - 1]
-            } de ${date.getFullYear()}`}{' '}
-            | 21:00 UTC
+            } de ${date.getFullYear()} | ${date.getHours()}:${date
+              .getMinutes()
+              .toString()
+              .padStart(2, '0')}h`}
           </h5>
           <p>Dados de câmbio disponibilizados pela Morningstar.</p>
         </DateInfo>
       </Header>
       {children}
-      {/* <ImgBG>
-        <img src="mask.png" alt="background-image" />
-      </ImgBG> */}
+      <LogoRomagnollo />
     </ScreenArea>
   );
 }
