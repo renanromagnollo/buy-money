@@ -14,6 +14,10 @@ const ScreenArea = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
   padding: 30px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 // const ImgBG = styled.div`
@@ -30,6 +34,7 @@ const Header = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
+  margin-bottom: 50px;
 `;
 
 const DateInfo = styled.div`
@@ -44,12 +49,32 @@ const DateInfo = styled.div`
   }
 `;
 export function Template({ children }: TemplateProps) {
+  const months = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro',
+  ];
+  const date = new Date();
   return (
     <ScreenArea>
       <Header>
         <Logo />
         <DateInfo>
-          <h5>14 de janeiro 2021 | 21:00 UTC</h5>
+          <h5>
+            {`${date.getDay()} de ${
+              months[date.getMonth() - 1]
+            } de ${date.getFullYear()}`}{' '}
+            | 21:00 UTC
+          </h5>
           <p>Dados de câmbio disponibilizados pela Morningstar.</p>
         </DateInfo>
       </Header>

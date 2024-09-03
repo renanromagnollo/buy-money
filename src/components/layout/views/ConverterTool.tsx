@@ -1,6 +1,4 @@
 //TODO: Colocar localstorage para o input selecionado
-//TODO: ativar botão converter somente se os dados estiverem apresentados
-//FIXME: dollar onfocus - se clicar no campo e o valor estiver 1,50 por ex, ele está apagando os centavos por inteiro e não somente o zero.
 
 // import { useRef } from 'react';
 import { ButtonConvert } from '../../buttons/ButtonConvert';
@@ -28,6 +26,16 @@ const ToolArea = styled.section`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    div {
+      gap: 5px;
+    }
+  }
 `;
 
 // const Inputs = styled.form`
@@ -43,6 +51,11 @@ const InputArea = styled.div`
     padding: 10px;
     width: 200px;
     height: 40px;
+
+    &:focus {
+      border-color: ${({ theme }) => theme.colors.primary.default};
+      outline: none;
+    }
   }
 `;
 
@@ -117,9 +130,6 @@ export function ConverterTool() {
 
   return (
     <ToolArea>
-      {/* {errors.refDolar && <p>{errors.refDolar.message}</p>}
-      {errors.refTaxa && <p>{errors.refTaxa.message}</p>}
-      {errors.payment && <p>{errors.payment.message}</p>} */}
       <form onSubmit={handleSubmit(handleDollar)}>
         <InputArea>
           <h5>Dólar</h5>
@@ -135,11 +145,7 @@ export function ConverterTool() {
             onFocus={onFocusDollarInput}
             onBlur={onBlurDollarInput}
           />
-          {/* {errors.refDolar?.type === 'required' && (
-            <p role="alert" style={{ color: 'red' }}>
-              Informe o valor acima!
-            </p>
-          )} */}
+
           {errors.refDolar && (
             <p role="alert" style={{ color: 'red' }}>
               {errors.refDolar.message}
@@ -163,16 +169,6 @@ export function ConverterTool() {
               {errors.refTaxa.message}
             </p>
           )}
-          {/* {errors.refTaxa?.type === 'required' && (
-            <p role="alert" style={{ color: 'red' }}>
-              Informe o valor acima!
-            </p>
-          )} */}
-          {/* {errors.refTaxa?.type === 'required' && (
-            <p role="alert" style={{ color: 'red' }}>
-              Informe o valor acima!
-            </p>
-          )} */}
         </InputArea>
         <div>
           <div style={{ display: 'flex', gap: '5px' }}>
@@ -183,7 +179,7 @@ export function ConverterTool() {
               name="payment"
               id="money"
               value="1"
-              style={{ accentColor: 'green' }}
+              style={{ accentColor: '#0076CC' }}
             />
             <label htmlFor="money">
               <h5>Dinheiro</h5>
@@ -194,7 +190,7 @@ export function ConverterTool() {
               name="payment"
               id="card"
               value="2"
-              style={{ accentColor: 'green' }}
+              style={{ accentColor: '#0076CC' }}
             />
             <label htmlFor="card">
               <h5>Cartão</h5>
