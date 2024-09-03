@@ -5,12 +5,18 @@ import { useReactQuery } from '../../../hooks/useReactQuery';
 import { useEffect, useState } from 'react';
 import { calcValues } from '../../../utils/calc-value';
 import { LoaderSpin } from '../../loaders/LoaderSpin';
+import { maskDollarLabel, maskResultFinalValue } from '../../../utils/masks';
 
 const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  span,
+  h1 {
+    font-weight: bolder;
+    color: ${({ theme }) => theme.colors.primary.dark};
+  }
 `;
 
 const Button = styled.button`
@@ -37,6 +43,9 @@ export function Result() {
   const queryParams = new URLSearchParams(search);
   const dollarNumber = +queryParams.get('d')!;
   const tax = +queryParams.get('t')!;
+  const payment = queryParams.get('p');
+
+  console.log('tipo da dollarNumber: ', dollarNumber);
 
   useEffect(() => {
     if (data && dollarNumber !== undefined && tax !== undefined) {
@@ -44,7 +53,7 @@ export function Result() {
         const values = calcValues({
           dollarNumber,
           dollarPrice: +data?.USDBRL.bid,
-          paymentType: '1',
+          paymentType: payment!,
           stateTax: tax,
         });
 
@@ -66,12 +75,14 @@ export function Result() {
             </Button>
           </Link>
           <h5>O resultado do cálculo é</h5>
-          <h1>R$ {result}</h1>
+          <h1>R$ {maskResultFinalValue(result.toString())}</h1>
           <div>
             <p>
-              Compra de ${dollarNumber} doláres no dinheiro e taxa de {tax}%
+              Compra de <span>$ {maskDollarLabel(dollarNumber.toString())}</span> doláres{' '}
+              no {payment === '1' ? 'dinheiro' : 'cartão'} e taxa de{' '}
+              <span>{tax.toString().replace(/\./, ',')}%.</span>
             </p>
-            <p>Cotação do dólar: $1,00 = R$ {data?.USDBRL.bid}</p>
+            <p>Cotação do dólar: $ 1,00 = R$ {data?.USDBRL.bid.replace(/\./, ',')}.</p>
           </div>
         </>
       )}

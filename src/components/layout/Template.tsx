@@ -16,14 +16,14 @@ const ScreenArea = styled.div`
   overflow: hidden;
 `;
 
-const ImgBG = styled.div`
-  position: absolute;
-  bottom: -80px;
-  right: 0;
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(transparent, black, transparent);
-  mask-image: linear-gradient(transparent, black, transparent);
-`;
+// const ImgBG = styled.div`
+//   position: absolute;
+//   bottom: -80px;
+//   right: 0;
+//   overflow: hidden;
+//   -webkit-mask-image: linear-gradient(transparent, black, transparent);
+//   mask-image: linear-gradient(transparent, black, transparent);
+// `;
 
 const Header = styled.div`
   display: flex;
@@ -54,9 +54,9 @@ export function Template({ children }: TemplateProps) {
         </DateInfo>
       </Header>
       {children}
-      <ImgBG>
+      {/* <ImgBG>
         <img src="mask.png" alt="background-image" />
-      </ImgBG>
+      </ImgBG> */}
     </ScreenArea>
   );
 }

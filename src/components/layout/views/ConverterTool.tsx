@@ -1,10 +1,21 @@
 //TODO: Colocar localstorage para o input selecionado
+//TODO: ativar botão converter somente se os dados estiverem apresentados
+//FIXME: dollar onfocus - se clicar no campo e o valor estiver 1,50 por ex, ele está apagando os centavos por inteiro e não somente o zero.
 
 // import { useRef } from 'react';
 import { ButtonConvert } from '../../buttons/ButtonConvert';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import {
+  maskDollarQuery,
+  maskDollarOnChangeInput,
+  maskTaxQuery,
+  maskTaxOnChangeInput,
+  maskDollarOnFocusInput,
+  maskDollarOnBlurInput,
+  maskTaxOnBlurInput,
+} from '../../../utils/masks';
 
 type Inputs = {
   refDolar: string;
@@ -39,96 +50,99 @@ export function ConverterTool() {
   const {
     register,
     handleSubmit,
+    setValue,
+    setError,
     formState: { errors },
   } = useForm<Inputs>();
   console.log('componente renderizou');
-  // const refDolar = useRef<HTMLInputElement>(null);
-  // const refTaxa = useRef<HTMLInputElement>(null);
-  // const navigate = useNavigate();
 
-  const handleDolar: SubmitHandler<Inputs> = (data) => {
-    // if (refDolar && refTaxa) {
-    //   console.log(refDolar.current?.value);
-    //   console.log(refTaxa.current?.value);
-    //   navigate(`/result?d=${refDolar.current?.value}&t=${refTaxa.current?.value}`);
-    // }
-    console.log(data);
+  const navigate = useNavigate();
+
+  const handleDollar: SubmitHandler<Inputs> = (data) => {
+    if (data.refDolar === '$ 0,00') {
+      setError('refDolar', {
+        type: 'manual',
+        message: 'Preencha com um valor válido!',
+      });
+    }
+    if (data.refTaxa === '0,0 %') {
+      setError('refTaxa', {
+        type: 'manual',
+        message: 'Preencha com um valor válido!',
+      });
+    }
+
+    if (data.refDolar !== '$ 0,00' && data.refTaxa !== '0,0 %') {
+      const dollar = maskDollarQuery(data.refDolar);
+      const tax = maskTaxQuery(data.refTaxa);
+      const payment = data.payment;
+      navigate(`/result?d=${dollar}&t=${tax}&p=${payment}`);
+    }
   };
 
-  function maskDollar(e: React.ChangeEvent<HTMLInputElement>) {
-    let value = e.target.value;
-    value = value.replace(/\D/g, '');
-    value = value.replace(/^0+/, '');
-    value = value.replace(/\./, ',');
-    value = value.padStart(3, '0');
-    value = value.replace(/(\d{2})$/, ',$1');
-    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-    value = `$ ${value}`;
-    e.target.value = value;
+  function onChangeDollarInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = maskDollarOnChangeInput(e);
+    if (value) setValue('refDolar', value);
   }
 
-  function maskTax(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log('length start:', e.target.value.length);
-    console.log(e.target.value);
-    let value = e.target.value;
-    value = value.replace(/[^0-9,.]/g, '');
-    value = value.replace(/^0+/, '');
-    value = value.replace(/\./, ',');
-    console.log('value', value);
-    if (e.target.value.length > 6) {
-      // value = value.replace(/(\d{1})$/, ',$1');
-      value = value.slice(1);
-    }
-    if (e.target.value.length === 6) {
-      value = value.replace(/^(\d{1})/, '$1');
-    }
+  function onFocusDollarInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = maskDollarOnFocusInput(e);
+    setValue('refDolar', value!);
+    e.target.setSelectionRange(e.target.value.length, e.target.value.length);
+  }
 
-    value = `${value} %`;
-    e.target.value = value;
+  function onBlurDollarInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = maskDollarOnBlurInput(e);
+    if (value) setValue('refDolar', value);
+  }
+
+  function onChangeTaxInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = maskTaxOnChangeInput(e);
+    if (value) setValue('refTaxa', value);
 
     e.target.setSelectionRange(value.length - 2, value.length - 2);
   }
 
-  function focusChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function onFocusTaxInput(e: React.ChangeEvent<HTMLInputElement>) {
     console.log('onfocus');
     if (e.target.value === '0,0 %') {
-      e.target.value = '';
+      setValue('refTaxa', '');
     }
   }
 
-  function blurChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    if (value.length < 3) e.target.value = '0,0 %';
-    if (value.match(/(,)\s/)) {
-      e.target.value = value.replace(/(,)\s/, ' ');
-    }
+  function onBlurTaxInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = maskTaxOnBlurInput(e);
+    if (value) setValue('refTaxa', value);
   }
-
-  // console.log(watch('refDolar'));
 
   return (
     <ToolArea>
-      {errors.refDolar && <p>{errors.refDolar.message}</p>}
+      {/* {errors.refDolar && <p>{errors.refDolar.message}</p>}
       {errors.refTaxa && <p>{errors.refTaxa.message}</p>}
-      {errors.payment && <p>{errors.payment.message}</p>}
-      <form onSubmit={handleSubmit(handleDolar)}>
+      {errors.payment && <p>{errors.payment.message}</p>} */}
+      <form onSubmit={handleSubmit(handleDollar)}>
         <InputArea>
           <h5>Dólar</h5>
           <input
-            autoFocus
             {...register('refDolar', {
               required: true,
             })}
-            // ref={refDolar}
             defaultValue={'$ 0,00'}
             type="text"
             id="dolar"
-            onChange={(e) => maskDollar(e)}
+            onChange={onChangeDollarInput}
             aria-invalid={errors.refDolar ? 'true' : 'false'}
+            onFocus={onFocusDollarInput}
+            onBlur={onBlurDollarInput}
           />
-          {errors.refDolar?.type === 'required' && (
+          {/* {errors.refDolar?.type === 'required' && (
             <p role="alert" style={{ color: 'red' }}>
               Informe o valor acima!
+            </p>
+          )} */}
+          {errors.refDolar && (
+            <p role="alert" style={{ color: 'red' }}>
+              {errors.refDolar.message}
             </p>
           )}
         </InputArea>
@@ -136,20 +150,29 @@ export function ConverterTool() {
           <h5>Taxa do Estado</h5>
           <input
             {...register('refTaxa', { required: true })}
-            // ref={refTaxa}
             type="text"
             id="tax"
             defaultValue={'0,0 %'}
-            onChange={maskTax}
+            onChange={onChangeTaxInput}
             aria-invalid={errors.refTaxa ? 'true' : 'false'}
-            onFocus={focusChange}
-            onBlur={blurChange}
+            onFocus={onFocusTaxInput}
+            onBlur={onBlurTaxInput}
           />
-          {errors.refTaxa?.type === 'required' && (
+          {errors.refTaxa && (
+            <p role="alert" style={{ color: 'red' }}>
+              {errors.refTaxa.message}
+            </p>
+          )}
+          {/* {errors.refTaxa?.type === 'required' && (
             <p role="alert" style={{ color: 'red' }}>
               Informe o valor acima!
             </p>
-          )}
+          )} */}
+          {/* {errors.refTaxa?.type === 'required' && (
+            <p role="alert" style={{ color: 'red' }}>
+              Informe o valor acima!
+            </p>
+          )} */}
         </InputArea>
         <div>
           <div style={{ display: 'flex', gap: '5px' }}>

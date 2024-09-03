@@ -1,7 +1,7 @@
 interface calcValuesProps {
   dollarNumber: number;
   stateTax: number;
-  paymentType: '1' | '2';
+  paymentType: string;
   dollarPrice: number;
 }
 
