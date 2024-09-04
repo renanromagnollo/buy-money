@@ -12,6 +12,7 @@ export function useReactQuery() {
   const query = useQuery<ReqType>({
     queryKey: ['USDBRL'],
     queryFn: fetchData,
+    staleTime: 1000 * 60,
   });
   return query;
 }
