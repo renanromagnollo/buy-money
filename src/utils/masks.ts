@@ -17,15 +17,12 @@ export function maskDollarOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) 
   value = value.replace(/[^0-9,.]/, '');
   value = value.replace(/^0+/, '');
   value = value.replace(/^\s+/, '');
-  // value = value.padStart(3, '0');
-  // value = value.replace(/(\d{2})$/, ',$1');
   value = `$ ${value}`;
   return value;
 }
 
 export function maskDollarLabel(v: string) {
   let value = v;
-  if (value.length < 3) value = '$ 0,00';
   if (value.match(/\.(\d{1})$/)) {
     value = value.replace(/\.(\d{1})$/, ',$10');
   }
