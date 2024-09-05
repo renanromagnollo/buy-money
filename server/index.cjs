@@ -1,5 +1,5 @@
-const USDBRL = require('./USD-BRL.json');
+const dataApi = require('./response.json');
 
 module.exports = () => ({
-  USDBRL,
+  'USD-BRL,EUR-BRL': dataApi,
 });
