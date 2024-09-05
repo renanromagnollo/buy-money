@@ -1,5 +1,5 @@
-const USDBRL = require('./USD-BRL.json');
+const dollarToReal = require('./USD-BRL.json');
 
 module.exports = () => ({
-  USDBRL,
+  'USD-BRL': dollarToReal,
 });
