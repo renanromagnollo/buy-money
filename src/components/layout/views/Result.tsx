@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useReactQuery } from '../../../hooks/useReactQuery';
 import { useEffect, useState } from 'react';
-import { calcValues } from '../../../utils/calc-value';
+import { calcValueToBuyCurrency } from '../../../utils/calc-value-to-buy-currency';
 import { LoaderSpin } from '../../loaders/LoaderSpin';
 import { maskDollarLabel, maskResultFinalValue } from '../../../utils/masks';
 
@@ -43,18 +43,16 @@ export function Result() {
 
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
-  const dollarNumber = +queryParams.get('d')!;
+  const amountToBuy = +queryParams.get('amount_to_buy')!;
   const tax = +queryParams.get('t')!;
   const payment = queryParams.get('p');
 
-  console.log('tipo da dollarNumber: ', dollarNumber);
-
   useEffect(() => {
-    if (data && dollarNumber !== undefined && tax !== undefined) {
+    if (data && amountToBuy !== undefined && tax !== undefined) {
       if (data) {
-        const values = calcValues({
-          dollarNumber,
-          dollarPrice: +data?.USDBRL.bid,
+        const values = calcValueToBuyCurrency({
+          amountToBuy,
+          currencyQuote: +data?.USDBRL.bid,
           paymentType: payment!,
           stateTax: tax,
         });
@@ -63,7 +61,7 @@ export function Result() {
       }
       return;
     }
-  }, [data, dollarNumber, payment, tax]);
+  }, [data, amountToBuy, payment, tax]);
   return (
     <Container>
       {!result ? (
@@ -74,7 +72,7 @@ export function Result() {
           <h1>R$ {maskResultFinalValue(result.toString())}</h1>
           <div>
             <h6>
-              Compra de <span>$ {maskDollarLabel(dollarNumber.toString())}</span> doláres{' '}
+              Compra de <span>$ {maskDollarLabel(amountToBuy.toString())}</span> doláres{' '}
               no {payment === '1' ? 'dinheiro' : 'cartão'} e taxa de{' '}
               <span>{tax.toString().replace(/\./, ',')}%.</span>
             </h6>

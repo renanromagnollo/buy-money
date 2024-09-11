@@ -38,11 +38,6 @@ const ToolArea = styled.section`
   }
 `;
 
-// const Inputs = styled.form`
-//   display: flex;
-//   gap: 10px;
-// `;
-
 const InputArea = styled.div`
   display: flex;
   flex-direction: column;
@@ -86,10 +81,10 @@ export function ConverterTool() {
     }
 
     if (data.refDolar !== '$ 0,00' && data.refTaxa !== '0,0 %') {
-      const dollar = maskDollarQuery(data.refDolar);
+      const amountToBuy = maskDollarQuery(data.refDolar);
       const tax = maskTaxQuery(data.refTaxa);
       const payment = data.payment;
-      navigate(`/result?d=${dollar}&t=${tax}&p=${payment}`);
+      navigate(`/result?amount_to_buy=${amountToBuy}&t=${tax}&p=${payment}`);
     }
   };
 
@@ -179,7 +174,7 @@ export function ConverterTool() {
                 type="radio"
                 name="payment"
                 id="money"
-                value="1"
+                value="moneyPay"
                 style={{ accentColor: '#0076CC' }}
               />
               <label htmlFor="money">
@@ -192,7 +187,7 @@ export function ConverterTool() {
                 type="radio"
                 name="payment"
                 id="card"
-                value="2"
+                value="cardPay"
                 style={{ accentColor: '#0076CC' }}
               />
               <label htmlFor="card">
