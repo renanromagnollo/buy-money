@@ -90,7 +90,7 @@ Inside of the project, you'll see the following folders and files:
 │   │   ├── assets/
 │   │   ├── buttons/
 │   │   ├── layout/
-│   │   ├── loaders/
+│   │   └── loaders/
 │   ├── config/
 │   │   └── environment.ts
 │   ├── hooks/
@@ -98,15 +98,15 @@ Inside of the project, you'll see the following folders and files:
 │   ├── styles/
 │   │   └── <!-- Styled Components root structures -->
 │   ├── types/
-│   │   └── styled-components.d.ts
+│   │   ├── styled-components.d.ts
 │   │   └── type-api-query.ts
 │   ├── utils/
-│   │   └── masks.ts
+│   │   ├── masks.ts
 │   │   └── calcValueToBuyCurrency.ts
-│   └── App.tsx
+│   ├── App.tsx
 │   └── main.tsx
-└── .env.example
-└── index.html
+├── .env.example
+├── index.html
 └── package.json
 ```
 
