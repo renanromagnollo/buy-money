@@ -1,5 +1,5 @@
 import { darken, lighten } from 'polished';
-import { fontConfig } from '../utils/font-config';
+import { fontConfig } from './font-config';
 
 const PRIMARY_COLOR = '#0076CC';
 const DEFAULT_FONT = '"Roboto", sans-serif';
