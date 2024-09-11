@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { ReqType } from '../types/type-req';
-import { BASE_URL } from '../config/environment';
+import { Env } from '../config/environment';
 
 async function fetchData(): Promise<ReqType> {
-  const { data } = await axios.get<ReqType>(BASE_URL + '/json/last/USD-BRL,EUR-BRL');
+  const { data } = await axios.get<ReqType>(Env.BASE_URL + '/json/last/USD-BRL,EUR-BRL');
   console.log(data);
   return data;
 }
