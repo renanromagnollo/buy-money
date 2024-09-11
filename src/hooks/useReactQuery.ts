@@ -7,7 +7,6 @@ async function fetchData(): Promise<ApiResponseType> {
   const { data } = await axios.get<ApiResponseType>(
     Env.BASE_URL + '/json/last/USD-BRL,EUR-BRL'
   );
-  console.log(data);
   return data;
 }
 export function useReactQuery() {

@@ -62,7 +62,6 @@ export function ConverterTool() {
     setError,
     formState: { errors },
   } = useForm<Inputs>();
-  console.log('componente renderizou');
 
   const navigate = useNavigate();
 
@@ -112,7 +111,6 @@ export function ConverterTool() {
   }
 
   function onFocusTaxInput(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log('onfocus');
     if (e.target.value === '0,0 %') {
       setValue('refTaxa', '');
     }

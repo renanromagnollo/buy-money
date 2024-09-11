@@ -8,7 +8,6 @@ export function maskDollarQuery(data: string) {
     dollar = dollar.replace(/(?<=\.\d)0+$|(?<=\.\d)0$|(?<=\d)\.0+$/, '');
   }
   dollar = dollar.replace(/^\$\s+/, '');
-  console.log('dollar -->: ', dollar);
   return dollar;
 }
 
@@ -26,10 +25,8 @@ export function maskDollarLabel(v: string) {
   if (value.match(/\.(\d{1})$/)) {
     value = value.replace(/\.(\d{1})$/, ',$10');
   }
-  console.log(value);
   if (value.match(/,(\d{1})$/)) {
     value = value.replace(/,(\d{1})$/, ',$10');
-    console.log('new value: ', value);
   }
   if (value.match(/(.\d{2})$/)) {
     value = value.replace(/\.(\d{2})$/, ',$1');
@@ -48,10 +45,8 @@ export function maskDollarOnBlurInput(e: React.ChangeEvent<HTMLInputElement>) {
   if (value.match(/\.(\d{1})$/)) {
     value = value.replace(/\.(\d{1})$/, ',$10');
   }
-  console.log(value);
   if (value.match(/,(\d{1})$/)) {
     value = value.replace(/,(\d{1})$/, ',$10');
-    console.log('new value: ', value);
   }
   if (value.match(/(.\d{2})$/)) {
     value = value.replace(/\.(\d{2})$/, ',$1');
@@ -66,7 +61,6 @@ export function maskDollarOnBlurInput(e: React.ChangeEvent<HTMLInputElement>) {
 
 export function maskDollarOnFocusInput(e: React.ChangeEvent<HTMLInputElement>) {
   let value = e.target.value;
-  console.log('onfocus');
   if (value === '$ 0,00') {
     return (value = '');
   }
@@ -97,13 +91,10 @@ export function maskTaxQuery(data: string) {
 }
 
 export function maskTaxOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
-  console.log('length start:', e.target.value.length);
-  console.log(e.target.value);
   let value = e.target.value;
   value = value.replace(/[^0-9,.]/g, '');
   value = value.replace(/^0+/, '');
   value = value.replace(/\./, ',');
-  console.log('value', value);
   if (e.target.value.length > 6) {
     // value = value.replace(/(\d{1})$/, ',$1');
     value = value.slice(1);
@@ -122,6 +113,5 @@ export function maskResultFinalValue(data: string) {
   value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
   value = value.replace(/\.(\d{3})$/g, '.$1,00');
 
-  console.log('value: ', value);
   return value;
 }
