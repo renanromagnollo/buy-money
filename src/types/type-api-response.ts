@@ -1,4 +1,4 @@
-interface ReqAttsType {
+type CurrencyType = {
   code: string;
   codein: string;
   name: string;
@@ -10,8 +10,8 @@ interface ReqAttsType {
   ask: string;
   timestamp: string;
   create_date: string;
-}
+};
 
-export interface ReqType {
-  USDBRL: ReqAttsType;
+export interface ApiResponseType {
+  [key: string]: CurrencyType;
 }

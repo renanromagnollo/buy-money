@@ -99,10 +99,10 @@ Inside of the project, you'll see the following folders and files:
 │   │   └── <!-- Styled Components root structures -->
 │   ├── types/
 │   │   ├── styled-components.d.ts
-│   │   └── type-api-query.ts
+│   │   └── type-api-response.ts
 │   ├── utils/
 │   │   ├── masks.ts
-│   │   └── calcValueToBuyCurrency.ts
+│   │   └── calc-value-to-buy-currency.ts
 │   ├── App.tsx
 │   └── main.tsx
 ├── .env.example
